@@ -9,7 +9,7 @@
 import UIKit
 
 class SecondViewController: UIViewController {
-
+    
     @IBAction func onBackButton(sender: AnyObject) {
         // dismiss to go back to the previous controller
         dismissViewControllerAnimated(true, completion: nil)

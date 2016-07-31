@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,7 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UL3-fZ-a1i">
-                                <rect key="frame" x="132" y="269" width="57" height="30"/>
+                                <rect key="frame" x="120" y="269" width="80" height="30"/>
+                                <color key="backgroundColor" red="0.22524988565887971" green="0.8029102562259478" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="4hZ-3b-yJT"/>
+                                </constraints>
                                 <state key="normal" title="Let's Go"/>
                                 <connections>
                                     <action selector="onButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="04Q-CN-AN8"/>
@@ -29,8 +33,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="UL3-fZ-a1i" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZvR-47-pNX"/>
-                            <constraint firstItem="UL3-fZ-a1i" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yJ1-PS-jwZ"/>
+                            <constraint firstItem="UL3-fZ-a1i" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cRb-zI-m5Q"/>
+                            <constraint firstItem="UL3-fZ-a1i" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="sDq-SX-d3m"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="qFW-8w-nhJ" appends="YES" id="JbG-G4-dcH"/>
@@ -48,6 +52,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="243" y="242"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="QSh-Ye-CD2">
@@ -62,7 +67,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qEK-ib-AQX">
-                                <rect key="frame" x="131" y="269" width="58" height="30"/>
+                                <rect key="frame" x="122" y="269" width="77" height="30"/>
+                                <color key="backgroundColor" red="0.22524988570000001" green="0.80291025620000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="77" id="R1p-Ya-HOx"/>
+                                </constraints>
                                 <state key="normal" title="Go Back"/>
                                 <connections>
                                     <action selector="onBackButton:" destination="wfH-Xs-xOu" eventType="touchUpInside" id="5Ro-re-xAr"/>
@@ -71,15 +80,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="qEK-ib-AQX" firstAttribute="centerX" secondItem="6Z9-wf-k0D" secondAttribute="centerX" id="FQD-eE-nAy"/>
-                            <constraint firstItem="qEK-ib-AQX" firstAttribute="centerY" secondItem="6Z9-wf-k0D" secondAttribute="centerY" id="oXC-Fs-Adh"/>
+                            <constraint firstItem="qEK-ib-AQX" firstAttribute="centerX" secondItem="6Z9-wf-k0D" secondAttribute="centerX" id="SUJ-wv-dgT"/>
+                            <constraint firstItem="qEK-ib-AQX" firstAttribute="centerY" secondItem="6Z9-wf-k0D" secondAttribute="centerY" id="rbm-Zg-4jO"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oC9-pp-nCb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="429"/>
+            <point key="canvasLocation" x="719" y="242"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
