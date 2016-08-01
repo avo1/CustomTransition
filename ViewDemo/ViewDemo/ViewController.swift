@@ -60,9 +60,8 @@ class ViewController: UIViewController {
         play()
     }
 
-
     @IBAction func onNext(sender: UIButton) {
-        let firstVC = FirstViewController()
+        let firstVC = FirstViewController(nibName: "FirstViewController", bundle: nil)
         presentViewController(firstVC, animated: true, completion: nil)
     }
 }
