@@ -28,7 +28,7 @@ class MyFirstXib: UIView {
         // code to load subviews from nib here
         // ...
         let nib = UINib(nibName: "MyFirstXib", bundle: nil)
-        nib.instantiateWithOwner(self, options: nil)
+        nib.instantiate(withOwner: self, options: nil)
         containerView.frame = bounds
         addSubview(containerView)
     }

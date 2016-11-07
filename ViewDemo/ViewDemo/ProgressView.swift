@@ -12,23 +12,27 @@ class ProgressView: UIView {
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
-        CGContextSetFillColorWithColor(context, UIColor.greenColor().CGColor)
+        context?.setStrokeColor(UIColor.red.cgColor)
+        context?.setFillColor(UIColor.green.cgColor)
 
         // Draw a line
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, 0, 0)
-        CGContextAddLineToPoint(context, rect.size.width * progress, 0)
-        CGContextStrokePath(context)
+        context?.beginPath()
+        context?.move(to: CGPoint(x: 0, y: 0))
+        context?.addLine(to: CGPoint(x: rect.size.width * progress, y: 0))
+        context?.strokePath()
 
         // Draw a pie
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, 50, 50)
-        CGContextAddArc(context, 50, 50, 40, 0, (1.00001 - progress) * 2.0 * CGFloat(M_PI), 1)
-        CGContextFillPath(context)
+        context?.beginPath()
+        context?.move(to: CGPoint(x: 50, y: 50))
+        // Swift 2.3
+        //CGContextAddArc(context, 50, 50, 40, 0, (1.00001 - progress) * 2.0 * CGFloat(M_PI), 1)
+        
+        // Swift 3.0
+        context?.addArc(center: CGPoint(x: 50, y: 50), radius: 40, startAngle: 0, endAngle: (1.00001 - progress) * 2.0 * CGFloat(M_PI), clockwise: true)
+        context?.fillPath()
 
     }
     

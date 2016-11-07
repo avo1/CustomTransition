@@ -21,8 +21,8 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onDismiss(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func onDismiss(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 
     /*
