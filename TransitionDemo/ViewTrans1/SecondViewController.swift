@@ -10,8 +10,8 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
-    @IBAction func onBackButton(sender: AnyObject) {
+    @IBAction func onBackButton(_ sender: AnyObject) {
         // dismiss to go back to the previous controller
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

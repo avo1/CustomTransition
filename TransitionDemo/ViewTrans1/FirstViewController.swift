@@ -11,39 +11,39 @@ import UIKit
 class FirstViewController: UIViewController {
     var animator = MyAnimator()
     
-    @IBAction func onButton(sender: AnyObject) {
+    @IBAction func onButton(_ sender: AnyObject) {
         print("let's go")
     }
 
-    @IBAction func onPinch(sender: UIPinchGestureRecognizer) {
+    @IBAction func onPinch(_ sender: UIPinchGestureRecognizer) {
         let scale = sender.scale
         let percentage = (scale-1) / 6
 
         // 9: start the pinch
-        if sender.state == .Began {
-            performSegueWithIdentifier("secondSegue", sender: self)
+        if sender.state == .began {
+            performSegue(withIdentifier: "secondSegue", sender: self)
         }
-        if sender.state == .Changed {
+        if sender.state == .changed {
             print("changed", scale)
-            animator.interactiveTransition.updateInteractiveTransition(percentage)
+            animator.interactiveTransition.update(percentage)
         }
         // 10: add cancellation if pinch in
-        if sender.state == .Ended {
+        if sender.state == .ended {
             if sender.velocity > 0 {
-                animator.interactiveTransition.finishInteractiveTransition()
+                animator.interactiveTransition.finish()
             } else {
-                animator.interactiveTransition.cancelInteractiveTransition()
+                animator.interactiveTransition.cancel()
                 print("cancelled")
             }
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("set transitioningDelegate")
-        let destVC = segue.destinationViewController
+        let destVC = segue.destination
         // 1: set delegate and custom modalPresentationStyle
         destVC.transitioningDelegate = animator
-        destVC.modalPresentationStyle = .Custom
+        destVC.modalPresentationStyle = .custom
 
         // 7: set isInteractive base on the segue
         animator.isInteractive = (segue.identifier == "secondSegue")
@@ -51,7 +51,7 @@ class FirstViewController: UIViewController {
 }
 
 class MyAnimator: NSObject {
-    let DURATION: NSTimeInterval = 1
+    let DURATION: TimeInterval = 1
     var isPresenting = false
 
     // 6: change to interactive transition
@@ -62,20 +62,20 @@ class MyAnimator: NSObject {
 extension MyAnimator: UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
 
     // 2: implement 2 protocols for UIViewControllerTransitioningDelegate
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         print("presenting")
         isPresenting = true
         return self
     }
 
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         print("dismissing")
         isPresenting = false
         return self
     }
 
     // 8: implement 1 more protocol from UIViewControllerTransitioningDelegate
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if isInteractive {
             print("setting interactive transitioning")
             interactiveTransition = UIPercentDrivenInteractiveTransition()
@@ -85,31 +85,31 @@ extension MyAnimator: UIViewControllerTransitioningDelegate, UIViewControllerAni
     }
 
     // 3: implement 2 required protocols for UIViewControllerAnimatedTransitioning
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return DURATION
     }
 
     // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()!
-        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
+        let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
 
         // 4: do it first for presenting
         if isPresenting {
             print("animating for presenting")
             containerView.addSubview(toVC.view)
             toVC.view.alpha = 0
-            toVC.view.transform = CGAffineTransformMakeScale(0.01, 0.01)
+            toVC.view.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
 
-            UIView.animateWithDuration(DURATION, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: [], animations: { 
+            UIView.animate(withDuration: DURATION, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: [], animations: { 
                 toVC.view.alpha = 1
-                toVC.view.transform = CGAffineTransformMakeScale(1, 1)
+                toVC.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }, completion: { (_) in
                     //transitionContext.completeTransition(true)
                     // 11: if cancel the interactive transition halfway
                     if self.isInteractive {
-                        if transitionContext.transitionWasCancelled() {
+                        if transitionContext.transitionWasCancelled {
                             toVC.view.removeFromSuperview()
                             transitionContext.completeTransition(false)
                         } else {
@@ -123,8 +123,8 @@ extension MyAnimator: UIViewControllerTransitioningDelegate, UIViewControllerAni
         } else {
             // 5: next for dismissing
             print("animating for dismissing")
-            UIView.animateWithDuration(DURATION, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: [], animations: {
-                fromVC.view.transform = CGAffineTransformMakeScale(0.01, 0.01)
+            UIView.animate(withDuration: DURATION, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: [], animations: {
+                fromVC.view.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
                 }, completion: { (_) in
                     fromVC.view.alpha = 0
                     fromVC.view.removeFromSuperview()
